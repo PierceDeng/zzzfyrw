@@ -1,0 +1,17 @@
+server:
+  port: 10001
+
+spring:
+  application:
+    name: zzzfyrw-core
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      config:
+        server-addr:  127.0.0.1:1501
+        file-extension: yml
+      discovery:
+        server-addr: 127.0.0.1:1501
