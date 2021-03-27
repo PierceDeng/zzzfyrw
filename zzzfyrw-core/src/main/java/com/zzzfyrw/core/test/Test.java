@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -30,12 +32,17 @@ public class Test {
     @GetMapping("/dict")
     public List<SysDictEntity> dict(){
         SysDictEntity sysDictEntity = new SysDictEntity();
-        sysDictMapper.insert(sysDictEntity);
-        ZThreadPoolManager.getInstance().asyncExecute(() ->{
-            SysDictEntity s2 = new SysDictEntity();
-            sysDictMapper.insert(s2);
-        });
-        return sysDictMapper.selectList(new LambdaQueryWrapper<SysDictEntity>());
+//        sysDictMapper.insert(sysDictEntity);
+//        ZThreadPoolManager.getInstance().asyncExecute(() ->{
+//            SysDictEntity s2 = new SysDictEntity();
+//            sysDictMapper.insert(s2);
+//        });
+        List<SysDictEntity> sysDictEntities = sysDictMapper.selectList(new LambdaQueryWrapper<SysDictEntity>());
+        for (SysDictEntity dictEntity : sysDictEntities) {
+            dictEntity.setDate(LocalDate.now());
+            dictEntity.setDateTime(LocalDateTime.now());
+        }
+        return sysDictEntities;
     }
 
 

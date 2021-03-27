@@ -1,9 +1,12 @@
 package com.zzzfyrw.core.repository.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -24,6 +27,15 @@ public class SysDictEntity implements Serializable {
 
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
+
+    @TableField(select = false)
+    private LocalDateTime dateTime;
+
+    @TableField(select = false)
+    private LocalDate date;
+
+    @TableField(select = false)
+    private String hasNull;
 
 
 }
