@@ -2,9 +2,9 @@
   "name": "zzzfyrw-site",
   "version": "0.0.1",
   "scripts": {
-    "dev": "vite --config build/dev.js",
+    "dev": "vite serve --mode dev",
     "build": "vite build",
-    "serve": "vite preview test"
+    "serve": "vite preview"
   },
   "dependencies": {
     "vue": "^3.0.5"

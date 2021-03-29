@@ -5,7 +5,6 @@ import vue from '@vitejs/plugin-vue'
 
 
 const dev_config = {
-
   server: {port:3005},
   test:"test",
   base:"/",
@@ -15,9 +14,9 @@ const dev_config = {
 
 
 export default ({ command, mode }) => {
-  // console.log("========")
-  // console.log(command,mode)
-  // console.log("========")
+  console.log("========")
+  console.log(command,mode)
+  console.log("========")
   // if (command === 'serve') {
   //   return dev_config
   // } else {
