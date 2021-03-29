@@ -1,4 +1,4 @@
-package com.zzzfyrw.core;
+package com.zzzfyrw.system;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -17,11 +17,11 @@ import java.net.UnknownHostException;
 @Slf4j
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan({"com.zzzfyrw.common","com.zzzfyrw.core"})
-public class ZzzfyrwCoreApplication {
+@ComponentScan({"com.zzzfyrw.common","com.zzzfyrw.system"})
+public class ZzzfyrwSystemApplication {
 
     public static void main(String[] args) throws UnknownHostException {
-        ConfigurableApplicationContext run = SpringApplication.run(ZzzfyrwCoreApplication.class, args);
+        ConfigurableApplicationContext run = SpringApplication.run(ZzzfyrwSystemApplication.class, args);
         Environment env = run.getEnvironment();
         String ip = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");
@@ -30,6 +30,7 @@ public class ZzzfyrwCoreApplication {
         log.info("PORT:"+" {} ",port);
         log.info("SERVER RUN SUCCESS !!!");
         log.info("====================================");
+
     }
 
     @LoadBalanced

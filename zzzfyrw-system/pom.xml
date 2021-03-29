@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -8,14 +9,13 @@
         <version>2.3.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.zzzfyrw</groupId>
-    <artifactId>zzzfyrw-core</artifactId>
+
+    <groupId>org.zzzfyrw</groupId>
+    <artifactId>zzzfyrw-system</artifactId>
     <version>0.0.1</version>
-    <name>${artifactId}(核心服务)</name>
+    <name>${artifactId}(系统服务)</name>
     <packaging>jar</packaging>
-    <description>核心服务</description>
-
-
+    <description>系统服务</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -87,7 +87,7 @@
                 <configuration>
                     <fork>true</fork>
                     <includeSystemScope>true</includeSystemScope>
-                    <mainClass>com.zzzfyrw.core.ZzzfyrwCoreApplication</mainClass>
+                    <mainClass>com.zzzfyrw.system.ZzzfyrwSystemApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
