@@ -1,13 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <div id="app" v-cloak>
+    <router-view />
+  </div>
+
 </template>
 
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script >
+  export default {
+    name: "App",
+    created() {
+    },
+    data(){
+      return {
 
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
+      }
+    },
+    watch: {
+      $router(to,come){
+        console.log(to);
+        console.log(come)
+        console.log("==========")
+      }
+    }
+  }
 </script>
 
 <style>
@@ -15,8 +30,8 @@ import HelloWorld from './components/HelloWorld.vue'
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /*text-align: center;*/
   color: #2c3e50;
-  margin-top: 60px;
+  /*margin-top: 60px;*/
 }
 </style>

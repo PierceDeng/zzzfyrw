@@ -2,12 +2,13 @@
   "name": "zzzfyrw-site",
   "version": "0.0.1",
   "scripts": {
+    "dev": "vite serve --open --mode dev",
     "serve": "vite preview",
-    "build": "vite build  --mode prd-line",
-    "dev": "vite serve --open --mode dev"
+    "build": "vite build  --mode prd-line"
   },
   "dependencies": {
     "element-plus": "^1.0.2-beta.28",
+    "nprogress": "^0.2.0",
     "vue": "^3.0.5",
     "vue-router": "^4.0.5"
   },
