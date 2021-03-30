@@ -2,16 +2,22 @@
   "name": "zzzfyrw-site",
   "version": "0.0.1",
   "scripts": {
-    "dev": "vite serve --mode dev",
-    "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "build": "vite build  --mode prd-line",
+    "dev": "vite serve --open --mode dev"
   },
   "dependencies": {
-    "vue": "^3.0.5"
+    "element-plus": "^1.0.2-beta.28",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.1.5",
     "@vue/compiler-sfc": "^3.0.5",
-    "vite": "^2.1.3"
+    "sass": "^1.27.0",
+    "sass-loader": "^10.0.4",
+    "vite": "^2.1.3",
+    "vite-plugin-style-import": "^0.9.1",
+    "vue-cli-plugin-element-plus": "~0.0.13"
   }
 }
