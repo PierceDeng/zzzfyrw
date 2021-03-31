@@ -3,33 +3,26 @@
 
 .login-container{
 
+  width: 100%;
   min-height: 100%;
 
   .login-header{
-    display: flex;
+    //display: flex;
     float: right;
     margin-right: 3%;
     margin-top: 2%;
-    span{
-      padding: $--plant-span;
-    }
   }
-
 }
 
 .login-main {
-
   padding-top: 10%;
-
   .login-center{
     max-width: 600px;
     display: flex;
     //background-color: green;
-
     margin: 0 30%;
     //height: 500px;
     border-radius: $--plant-border-radius;
-
     .login-center-left{
       width: 50%;
       height: inherit;
@@ -37,13 +30,18 @@
       border-radius: $--plant-border-radius 0 0 $--plant-border-radius;
       border-right: 1px solid blue;
     }
-
     .login-center-right{
       width: 50%;
       border: 1px solid #fff;
       background: #fff;
-
     }
+    .login-info{
+      padding: 15px;
+      .login-info-header{
+        margin: 0 auto;
+      }
+    }
+
   }
 
 }
