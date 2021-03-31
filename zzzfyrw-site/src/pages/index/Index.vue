@@ -1,13 +1,13 @@
 <template>
-  yyyy
+  $END$
 </template>
 
 <script>
 export default {
-  name: "login"
+  name: "Index"
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  @import "Index"
 </style>

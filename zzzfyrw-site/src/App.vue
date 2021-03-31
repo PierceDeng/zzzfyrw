@@ -7,7 +7,7 @@
 
 <script >
   export default {
-    name: "App",
+    name: "app",
     created() {
     },
     data(){
@@ -17,9 +17,9 @@
     },
     watch: {
       $router(to,come){
-        console.log(to);
-        console.log(come)
-        console.log("==========")
+        console.info(to);
+        console.info(come)
+        console.info("==========")
       }
     }
   }

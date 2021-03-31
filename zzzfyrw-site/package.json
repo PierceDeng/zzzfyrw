@@ -3,14 +3,17 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "vite serve --open --mode dev",
+    "build": "vite build  --mode prd-line",
     "serve": "vite preview",
-    "build": "vite build  --mode prd-line"
+    "update": "cnpm install "
   },
   "dependencies": {
     "element-plus": "^1.0.2-beta.28",
+    "es6-promise": "^4.2.8",
     "nprogress": "^0.2.0",
     "vue": "^3.0.5",
-    "vue-router": "^4.0.5"
+    "vue-router": "^4.0.5",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.1.5",

@@ -1,5 +1,5 @@
 import vue from '@vitejs/plugin-vue'
-// https://vitejs.dev/config/
+const {resolve} = require('path')
 
 const dev_config = {
 
@@ -9,10 +9,15 @@ const dev_config = {
     strictPort:true,
     port:3005,
     cors: true,
-    proxy:{
-
-
-    },
+    proxy:{},
+  },
+  resolve: {
+    alias: [{ find: '@', replacement: resolve(__dirname, './src') }],
+  },
+  css:{
+    preprocessorOptions:{
+      scss: {}
+    }
   },
   build:{
     outDir: 'dist',
@@ -36,7 +41,7 @@ const prd_config = {
   publicDir:'public',
   server: {
     host:'0.0.0.0',
-    strictPort:true,
+    strictPort:false,
     port:3005,
     cors: true,
     proxy:{
