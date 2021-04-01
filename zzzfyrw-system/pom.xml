@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>org.zzzfyrw</groupId>
+    <groupId>com.zzzfyrw</groupId>
     <artifactId>zzzfyrw-system</artifactId>
     <version>0.0.1</version>
     <name>${artifactId}(系统服务)</name>
@@ -87,7 +87,7 @@
                 <configuration>
                     <fork>true</fork>
                     <includeSystemScope>true</includeSystemScope>
-                    <mainClass>com.zzzfyrw.system.ZzzfyrwSystemApplication</mainClass>
+                    <mainClass>com.zzzfyrw.zzzfyrw.system.ZzzfyrwSystemApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
