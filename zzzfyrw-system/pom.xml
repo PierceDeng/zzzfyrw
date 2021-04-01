@@ -87,7 +87,7 @@
                 <configuration>
                     <fork>true</fork>
                     <includeSystemScope>true</includeSystemScope>
-                    <mainClass>com.zzzfyrw.zzzfyrw.system.ZzzfyrwSystemApplication</mainClass>
+                    <mainClass>com.zzzfyrw.system.ZzzfyrwSystemApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
