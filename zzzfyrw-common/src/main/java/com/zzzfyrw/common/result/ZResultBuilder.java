@@ -14,7 +14,7 @@ public class ZResultBuilder {
         return result;
     }
 
-    public static <T> ZResult<T> fail(T t){
+    public static <T> ZResult<T> fail(){
         ZResult<T> result = new ZResult<>();
         result.setSuccess(Boolean.FALSE);
         result.setTimestamp(System.currentTimeMillis());

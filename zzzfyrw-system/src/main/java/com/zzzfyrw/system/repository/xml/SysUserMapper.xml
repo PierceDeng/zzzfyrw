@@ -31,4 +31,39 @@
         id, name, phone, sex, avatar, birthday, work_no, email, nick_name, password, user_type, row_status, alive_status, created_time, updated_time, created_user, updated_user
     </sql>
 
+    <sql id="User_Manager_Info_Sql">
+        SELECT
+        <choose>
+            <when test="e.count == null">
+                u.id as userId,
+                u.`nick_name` as userName,
+                u.sex as sex,
+                u.phone as phone,
+                u.created_time as createdTime,
+                u.alive_status as aliveStatus
+            </when>
+            <otherwise>COUNT(1)</otherwise>
+        </choose>
+        FROM
+            sys_user u
+        <where>
+            u.row_status = 1
+        </where>
+    </sql>
+
+    <select id="queryListPage" resultType="com.zzzfyrw.system.translate.dto.SysUserInfoDto">
+        <include refid="User_Manager_Info_Sql" />
+        ORDER BY u.created_time desc
+        LIMIT #{e.pageIndex},#{e.pageCount}
+    </select>
+
+    <select id="countParams" resultType="java.lang.Integer">
+        <include refid="User_Manager_Info_Sql" />
+    </select>
+
+    <select id="queryList" resultType="com.zzzfyrw.system.translate.dto.SysUserInfoDto">
+        <include refid="User_Manager_Info_Sql" />
+        ORDER BY u.created_time desc
+    </select>
+
 </mapper>
