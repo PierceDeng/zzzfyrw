@@ -1,6 +1,7 @@
 package com.zzzfyrw.common.jwt;
 
-import com.zzzfyrw.common.codec.gson.GsonUtil;
+import com.zzzfyrw.common.constant.EncryptConstant;
+import com.zzzfyrw.common.json.gson.GsonUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 public class JwtComponent {
     private SecretKey secretKey;
-    private String tokenKey = "264290ce387c9ebf5999750fe785921657aa59561bf50909af9dbf41d85d70ef";
+    private String tokenKey = EncryptConstant.JWT_KEY;
     private Long defaultExpirationTime = 30 * 60 * 1000L;
     private Long defaultErrorTime = 5 * 1000L;
     private static final String AlgorithmStr ="HmacSHA256";

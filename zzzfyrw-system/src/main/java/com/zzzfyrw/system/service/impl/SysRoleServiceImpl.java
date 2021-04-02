@@ -1,6 +1,7 @@
 package com.zzzfyrw.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzzfyrw.common.thread.ThreadLocalUtil;
 import com.zzzfyrw.system.repository.entity.SysRoleEntity;
 import com.zzzfyrw.system.repository.mapper.SysRoleMapper;
@@ -11,6 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -46,10 +51,17 @@ public class SysRoleServiceImpl implements ISysRoleService {
 
     @Override
     public IPage<SysRoleInfoDto> queryListPage(SysRoleIVo vo) {
-
-
-
-
-        return null;
+        int total;
+        IPage<SysRoleInfoDto> page = new Page<>(vo.getCurrentPage(),vo.getPageCount());
+        Map<String,Object> params = new HashMap<>();
+        total = sysRoleMapper.countParams(params);
+        page.setTotal(total);
+        if(total == 0){
+            return page;
+        }
+        params.put("count",null);
+        List<SysRoleInfoDto> list = sysRoleMapper.queryListPage(params);
+        page.setRecords(list);
+        return page;
     }
 }

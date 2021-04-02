@@ -1,4 +1,4 @@
-package com.zzzfyrw.common.codec.gson;
+package com.zzzfyrw.common.json.gson;
 
 
 import com.google.gson.*;

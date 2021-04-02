@@ -23,4 +23,33 @@
         id, name, row_status, has_open, created_time, updated_time, created_user, updated_user, description
     </sql>
 
+    <sql id="Role_Info_Sql">
+        SELECT
+        <choose>
+            <when test="e.count == null">
+                r. id as roleId,
+                r.`name` as roleName,
+                r.has_open as hasOpen,
+                r.created_time as craetedTime,
+                r.description as remark
+            </when>
+            <otherwise>COUNT(1)</otherwise>
+        </choose>
+        FROM
+            sys_role r
+        <where>
+            r.row_status = 1
+        </where>
+    </sql>
+
+    <select id="queryListPage" resultType="com.zzzfyrw.system.translate.dto.SysRoleInfoDto">
+        <include refid="Role_Info_Sql" />
+        ORDER BY r.created_time desc
+        LIMIT #{e.pageIndex},#{e.pageCount}
+    </select>
+
+    <select id="countParams" resultType="java.lang.Integer">
+        <include refid="Role_Info_Sql" />
+    </select>
+
 </mapper>
