@@ -10,17 +10,10 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 @Aspect
 @Component
 @Order(99)
 public class ThreadLocalAspect {
-
-    @Resource
-    private HttpServletRequest httpRequest;
-
 
     @Pointcut(value = "execution(* com.zzzfyrw.*.controller.*Controller.*(..))")
     public void saveThreadLocalMap() {}

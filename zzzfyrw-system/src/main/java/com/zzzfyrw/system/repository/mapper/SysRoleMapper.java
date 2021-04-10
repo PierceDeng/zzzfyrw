@@ -20,6 +20,6 @@ public interface SysRoleMapper extends BaseMapper<SysRoleEntity> {
 
     List<SysRoleInfoDto> queryListPage(@Param("e") Map<String,Object> params);
 
-    int countParams(@Param("e") Map<String,Object> params);
+    Long countParams(@Param("e") Map<String,Object> params);
 
 }

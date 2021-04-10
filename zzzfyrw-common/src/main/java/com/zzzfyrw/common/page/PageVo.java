@@ -1,8 +1,11 @@
 package com.zzzfyrw.common.page;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
-public abstract class PageVo implements IPageHandler, Serializable {
+@Data
+public class PageVo implements IPageHandler, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,13 +25,5 @@ public abstract class PageVo implements IPageHandler, Serializable {
     @Override
     public int getPageCount() {
         return pageCount;
-    }
-
-    public void setPageIndex(int pageIndex) {
-        this.pageIndex = pageIndex;
-    }
-
-    public void setPageCount(int pageCount) {
-        this.pageCount = pageCount;
     }
 }

@@ -17,7 +17,7 @@ public class MyBatisGenerator {
 
         GlobalConfig config = new GlobalConfig();
         config.setAuthor("dpz");
-        config.setEnableCache(true);
+        config.setEnableCache(false);
         config.setOutputDir(System.getProperty("user.dir")
                 + File.separator+"zzzfyrw-system"+File.separator+"src"
                 + File.separator+"main"+File.separator+"java");

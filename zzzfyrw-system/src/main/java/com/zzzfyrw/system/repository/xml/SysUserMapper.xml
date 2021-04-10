@@ -3,7 +3,7 @@
 <mapper namespace="com.zzzfyrw.system.repository.mapper.SysUserMapper">
 
     <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+<!--    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zzzfyrw.system.repository.entity.SysUserEntity">
@@ -57,7 +57,7 @@
         LIMIT #{e.pageIndex},#{e.pageCount}
     </select>
 
-    <select id="countParams" resultType="java.lang.Integer">
+    <select id="countParams" resultType="java.lang.Long">
         <include refid="User_Manager_Info_Sql" />
     </select>
 

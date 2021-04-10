@@ -25,14 +25,14 @@ public class SysRoleController {
     }
 
     @ZLog
-    @PostMapping("/addUser")
-    public ZResult addUser(@RequestBody SysRoleIVo vo){
+    @PostMapping("/addRole")
+    public ZResult addRole(@RequestBody SysRoleIVo vo){
         return ZResultBuilder.ok(roleService.addOrEdit(vo));
     }
 
     @ZLog
-    @PostMapping("/delUser")
-    public ZResult delUser(@RequestBody SysRoleIVo vo){
+    @PostMapping("/delRole")
+    public ZResult delRole(@RequestBody SysRoleIVo vo){
         return ZResultBuilder.ok(roleService.del(vo));
     }
 

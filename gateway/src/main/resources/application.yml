@@ -1,0 +1,22 @@
+
+spring:
+  profiles: dev
+  cloud:
+    gateway:
+      enabled: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: zzzfyrw-system
+          uri: lb://zzzfyrw-system
+          predicates:
+            - Path=/system/**
+          filters:
+            - StripPrefix=1
+
+
+

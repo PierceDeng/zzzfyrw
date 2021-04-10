@@ -12,7 +12,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
-@Slf4j
 public class AesCipher implements IEncrypt {
 
     private static final String ALGORITHM = "AES";

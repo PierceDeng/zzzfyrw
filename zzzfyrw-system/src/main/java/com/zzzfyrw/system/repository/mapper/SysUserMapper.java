@@ -20,7 +20,7 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 
     List<SysUserInfoDto> queryListPage(@Param("e") Map<String,Object> map);
 
-    int countParams(@Param("e") Map<String,Object> map);
+    Long countParams(@Param("e") Map<String,Object> map);
 
     List<SysUserInfoDto> queryList(@Param("e") Map<String,Object> map);
 }

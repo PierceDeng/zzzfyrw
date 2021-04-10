@@ -86,6 +86,7 @@ public class JacksonConfig {
                     }
                 } catch (NoSuchFieldException e) {
                 }
+                jsonGenerator.writeString("");
                 return;
             }
         });

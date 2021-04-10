@@ -26,11 +26,6 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.zzzfyrw</groupId>
-            <artifactId>zzzfyrw-common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
             <version>${nacos.spring.cloud.version}</version>
@@ -58,10 +53,6 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis.plus.version}</version>
@@ -74,6 +65,13 @@
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
+        </dependency>
+
+        <!-- 内部依赖 -->
+        <dependency>
+            <groupId>com.zzzfyrw</groupId>
+            <artifactId>zzzfyrw-common</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
 

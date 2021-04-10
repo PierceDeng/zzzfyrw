@@ -27,14 +27,14 @@ public class SystemUserServiceImpl implements ISystemUserService {
 
     @Override
     public IPage<SysUserInfoDto> queryListPage(SystemUserVo vo) {
-        int total;
+        Long total;
         IPage<SysUserInfoDto> page = new Page<>(vo.getCurrentPage(),vo.getPageCount());
         Map<String,Object> params = new HashMap<>();
         total = sysUserMapper.countParams(params);
-        page.setTotal(total);
-        if(total == 0){
+        if(null == total || total == 0){
             return page;
         }
+        page.setTotal(total);
         params.put("count",null);
         List<SysUserInfoDto> list = sysUserMapper.queryListPage(params);
         page.setRecords(list);
