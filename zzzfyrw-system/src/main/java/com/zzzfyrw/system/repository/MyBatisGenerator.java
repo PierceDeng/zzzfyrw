@@ -49,7 +49,7 @@ public class MyBatisGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setNaming(NamingStrategy.underline_to_camel);
-        strategy.setInclude("sys_user","sys_role_user","sys_role","sys_role_permission","sys_permission");//表名
+        strategy.setInclude("sys_log");//表名
         strategy.setRestControllerStyle(true);
         strategy.setEntityTableFieldAnnotationEnable(true);
         strategy.setEntityLombokModel(Boolean.TRUE);

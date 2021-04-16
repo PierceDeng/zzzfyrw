@@ -15,7 +15,7 @@ public class PageVo implements IPageHandler, Serializable {
     private int pageCount = 10;
 
     @Override
-    public int getCurrentPage() {
+    public int currentPage() {
         if(pageIndex > 0){
             return (pageIndex - 1) * pageCount;
         }

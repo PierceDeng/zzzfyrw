@@ -3,7 +3,7 @@ package com.zzzfyrw.common.page;
 public interface IPageHandler {
 
 
-    int getCurrentPage();
+    int currentPage();
 
     int getPageCount();
 

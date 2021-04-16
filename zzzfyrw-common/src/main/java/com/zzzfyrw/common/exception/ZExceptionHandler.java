@@ -16,6 +16,8 @@ public class ZExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public ZResult exceptionHandler(Exception e){
+        log.info(e.getMessage());
+        e.printStackTrace();
         return ZResultBuilder.fail();
     }
 

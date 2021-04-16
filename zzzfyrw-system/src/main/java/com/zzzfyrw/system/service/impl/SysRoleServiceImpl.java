@@ -51,7 +51,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
 
     @Override
     public IPage<SysRoleInfoDto> queryListPage(SysRoleIVo vo) {
-        IPage<SysRoleInfoDto> page = new Page<>(vo.getCurrentPage(),vo.getPageCount());
+        IPage<SysRoleInfoDto> page = new Page<>(vo.currentPage(),vo.getPageCount());
         Map<String,Object> params = new HashMap<>();
         Long total = sysRoleMapper.countParams(params);
         if(total == null || total == 0){

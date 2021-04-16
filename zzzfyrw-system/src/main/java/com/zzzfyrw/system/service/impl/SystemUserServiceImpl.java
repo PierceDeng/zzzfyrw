@@ -28,7 +28,7 @@ public class SystemUserServiceImpl implements ISystemUserService {
     @Override
     public IPage<SysUserInfoDto> queryListPage(SystemUserVo vo) {
         Long total;
-        IPage<SysUserInfoDto> page = new Page<>(vo.getCurrentPage(),vo.getPageCount());
+        IPage<SysUserInfoDto> page = new Page<>(vo.currentPage(),vo.getPageCount());
         Map<String,Object> params = new HashMap<>();
         total = sysUserMapper.countParams(params);
         if(null == total || total == 0){
