@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 public final class GsonUtil {
@@ -21,10 +22,14 @@ public final class GsonUtil {
         builder.disableHtmlEscaping();
         builder.setLenient();
         builder.setLongSerializationPolicy(LongSerializationPolicy.STRING);
+
+        //序列化
         builder.registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>)
                 (o, type, jsonSerializationContext) -> new JsonPrimitive(o.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
         builder.registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>)
                 (date, type, jsonSerializationContext) -> new JsonPrimitive(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+
+        //反序列化
         builder.registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (jsonElement, type, jsonDeserializationContext) -> {
             String datetime = jsonElement.getAsJsonPrimitive().getAsString();
             return LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -33,6 +38,8 @@ public final class GsonUtil {
             String datetime = jsonElement.getAsJsonPrimitive().getAsString();
             return LocalDate.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         });
+
+
     }
 
     public static <T> T fromJsonToObject (String json, Class<T> type){

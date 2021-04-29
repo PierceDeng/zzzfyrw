@@ -14,7 +14,7 @@ public class ZThreadPoolManager extends AbstractThreadPool implements IConcurren
     public enum ThreadPoolHelper{
         INSTANCE;
         private ZThreadPoolManager zThreadPoolManager;
-        ThreadPoolHelper(){this.zThreadPoolManager=new ZThreadPoolManager();}
+        ThreadPoolHelper(){this.zThreadPoolManager = new ZThreadPoolManager();}
         public ZThreadPoolManager getInstance(){return zThreadPoolManager;}
     }
 

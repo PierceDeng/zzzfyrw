@@ -13,17 +13,19 @@ spring:
         file-extension: yml
       discovery:
         server-addr: 127.0.0.1:1501
+        namespace:
     gateway:
       enabled: true
-  redis:
-    database: 0
-    host: 192.168.15.35
-    port: 6379
-    password:
-    timeout: 5000
-    lettuce:
-      pool:
-        max-active: 100
-        max-idle: 50
-        max-wait: -1
-        min-idle: 10
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
+gateway:
+  router:
+    type: nacos
+    group: DEFAULT_GROUP
+    data-id: gateway-router.json
+

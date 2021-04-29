@@ -1,9 +1,13 @@
 package com.zzzfyrw.common.enums;
 
+import com.zzzfyrw.common.result.ZResult;
+
 public enum ResultEnum {
 
 
     SUCCESS(0,"SUCCESS"),
+
+    WARP_SUCCESS(201,"WARP SUCCESS"),
 
     TIME_OUT(500,"TIME OUT ERR"),
 

@@ -16,6 +16,17 @@ public class AesCipher implements IEncrypt {
 
     private static final String ALGORITHM = "AES";
 
+    public enum AesCipherHelp{
+        INSTANCE;
+        private AesCipher aesCipher;
+        AesCipherHelp(){this.aesCipher = new AesCipher();}
+        private AesCipher getInstance(){return aesCipher;}
+    }
+
+    public static AesCipher getInstance(){
+        return AesCipherHelp.INSTANCE.getInstance();
+    }
+
     @Override
     public String encode(String key, String content) throws Exception{
         byte[] values=encode(key,content.getBytes(StandardCharsets.UTF_8));
@@ -83,7 +94,7 @@ public class AesCipher implements IEncrypt {
 
     public static void main(String[] args) throws Exception {
         //字符串
-        AesCipher aesCipher = new AesCipher();
+        AesCipher aesCipher = AesCipher.getInstance();
         String a1 = "13123@!@#-/;";
         System.out.println(a1);
         String a2 = aesCipher.encode(EncryptConstant.AES_KEY, a1);
