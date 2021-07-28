@@ -12,9 +12,15 @@ package com.zzzfyrw.common.net.okhttp;
 
 import okhttp3.*;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,23 +29,50 @@ import java.util.concurrent.TimeUnit;
  * created 2018/12/10 22:56
  */
 public class OkHttpUtil {
-    private static volatile  Long ConnectTimeOut=10L;
-    private static volatile  Long ReadTimeOut=600L;
-    private static volatile  Long WriteTimeOut=600L;
     public enum OkHttpHelper{
         INSTANCE;
         private OkHttpClient OkHttpClient;
         OkHttpHelper(){
             this.OkHttpClient=new OkHttpClient();
             OkHttpClient.Builder builder = this.OkHttpClient.newBuilder();
-            builder.connectTimeout(ConnectTimeOut, TimeUnit.SECONDS);
-            builder.readTimeout(ReadTimeOut,TimeUnit.SECONDS);
-            builder.writeTimeout(WriteTimeOut,TimeUnit.SECONDS);
+            builder.connectTimeout(60, TimeUnit.SECONDS);
+            builder.readTimeout(60,TimeUnit.SECONDS);
+            builder.writeTimeout(60,TimeUnit.SECONDS);
+            TrustManager[] trustAllCerts = buildTrustManagers();
+            final SSLContext sslContext;
+            try {
+                sslContext = SSLContext.getInstance("SSL");
+                sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+                final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+                builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
+                builder.hostnameVerifier((hostname, session) -> true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             builder.build();
         }
         public OkHttpClient getOkHttpClient() {
             return OkHttpClient;
         }
+    }
+
+    private static TrustManager[] buildTrustManagers() {
+        return new TrustManager[]{
+                new X509TrustManager() {
+                    @Override
+                    public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                    }
+
+                    @Override
+                    public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                    }
+
+                    @Override
+                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                        return new java.security.cert.X509Certificate[]{};
+                    }
+                }
+        };
     }
 
     private static OkHttpClient getInstance(){
@@ -87,6 +120,11 @@ public class OkHttpUtil {
         return doRequest(request);
     }
 
+    /**
+     * 文件下载
+     * @param url 文件地址
+     * @return 返回字节数据流
+     */
     public static InputStream downFile(String url){
         try{
             Request request = buildRequest(url, HttpMethodEnum.GET,null,null,null);
@@ -99,14 +137,55 @@ public class OkHttpUtil {
     }
     private static String doRequest(Request request){
         Response response;
-        String result= null;
         try {
             response = getInstance().newCall(request).execute();
-            result = response.body().string();
+            return response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return result;
+        return null;
+    }
+
+    /**
+     * form/data 单文件上传
+     * @param url 请求地址
+     * @param file 文件
+     * @param fileKey  文件key
+     * @param params 其它请求参数
+     * @param requestHeader 请求头
+     * @return 返回内容
+     */
+    public static String multipartImagePost(String url, File file, String fileKey, Map<String,String> params, Map<String,String> requestHeader)  {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(Objects.requireNonNull(MediaType.parse("multipart/form-data")));
+        if(file != null){
+            RequestBody fileBody;
+            if(file.getName().contains("jpg") || file.getName().contains("jpeg")){ //只支持两种格式，后续加
+                fileBody = RequestBody.create(MediaType.parse("image/jpeg"),file);
+            }else {
+                fileBody = RequestBody.create(MediaType.parse("image/png"),file);
+            }
+            builder.addFormDataPart(fileKey, file.getName(), fileBody);
+        }
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if(entry.getValue() == null){
+                builder.addFormDataPart(entry.getKey(),"");
+            }else {
+                builder.addFormDataPart(entry.getKey(), entry.getValue());
+            }
+        }
+        Request.Builder requestBuilder = new Request.Builder()
+                .post(builder.build())
+                .url(url);
+        setHeaders(requestHeader,requestBuilder);
+
+        try {
+            Response execute = getInstance().newCall(requestBuilder.build()).execute();
+            return execute.body().string();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static Request buildRequest(String url, HttpMethodEnum methodEnum, Map<String,String> params, String json, Map<String,String> headerMap){
@@ -120,9 +199,9 @@ public class OkHttpUtil {
             case POST:
                 RequestBody body = null;
                 if(json != null){
-                    body = RequestBody.create(json,MediaType.parse("application/json;charset=utf-8"));
+                    body = RequestBody.create(MediaType.parse("application/json"),json);
                 }else if(params != null){
-                    body = builderFormData(params);
+                    body = builderFormUrlencoded(params);
                 }
                 setHeaders(headerMap, builder);
                 builder.post(body);
@@ -138,10 +217,14 @@ public class OkHttpUtil {
                 headers.add(entry.getKey(), entry.getValue());
             }
             builder.headers(headers.build());
+        }else {
+            Headers.Builder headers = new Headers.Builder();
+            headers.add("Connection","close"); //取消连接保证下次请求获取
+            builder.headers(headers.build());
         }
     }
 
-    private static RequestBody builderFormData(Map<String,String> map){
+    private static RequestBody builderFormUrlencoded(Map<String,String> map){
         FormBody.Builder formBody = new FormBody.Builder();
         if(map != null){
             for (Map.Entry<String, String> entry : map.entrySet()) {

@@ -23,7 +23,7 @@ public class ThreadLocalUtil{
     }
 
     public static void setUserInfo(SysUserInfo info){
-        sysUserInfo.set(info);
+        if(info != null) sysUserInfo.set(info);
     }
 
     public static HttpServletRequest getRequest(){

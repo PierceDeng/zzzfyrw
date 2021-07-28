@@ -24,16 +24,14 @@ public class ZExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public ZResult<Object> exceptionHandler(Exception e){
-        log.info(e.getMessage());
-        e.printStackTrace();
+        log.error(e.getMessage(),e);
         return ZResultBuilder.fail();
     }
 
     @ResponseBody
     @ExceptionHandler(value = ZBootException.class)
     public ZResult<Object> zBootExceptionHandler(ZBootException e){
-        log.info(e.getMessage());
-        e.printStackTrace();
+        log.error(e.getMessage());
         ResultEnum resultEnum = e.getResultEnum();
         ZResult<Object> result = null;
         switch (resultEnum){

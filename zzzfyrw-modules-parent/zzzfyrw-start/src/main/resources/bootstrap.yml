@@ -1,0 +1,25 @@
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+
+---
+spring:
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr:  127.0.0.1:1501
+        file-extension: yml
+      discovery:
+        server-addr: 127.0.0.1:1501
+
+
+---
+spring:
+  profiles:
+    active: sit
+    include:
+      - zzzfyrw-sit

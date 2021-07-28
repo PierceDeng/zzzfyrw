@@ -17,7 +17,7 @@ import java.util.Optional;
 public class JwtComponent {
     private SecretKey secretKey;
     private String tokenKey = EncryptConstant.JWT_KEY;
-    private Long defaultExpirationTime = 30 * 60 * 1000L;
+    private Long defaultExpirationTime = 60 * 60 * 1000L;
     private Long defaultErrorTime = 5 * 1000L;
     private static final String AlgorithmStr ="HmacSHA256";
     private static final SignatureAlgorithm Algorithm = SignatureAlgorithm.HS256;
@@ -45,7 +45,7 @@ public class JwtComponent {
         this.secretKey = secretKey;
     }
     /**
-     * 过期时间为30分钟的jwt生成
+     * 过期时间为60分钟的jwt生成
      *
      * @param params 你的入参
      * @return jwt密文
@@ -100,9 +100,7 @@ public class JwtComponent {
         String json= GsonUtil.fromObjectToJson(obj);
         Map<String,Object> map=GsonUtil.fromJsonToMap(json);
         Date now = new Date();
-        date = Optional.ofNullable(date).orElseGet(() -> {
-            return new Date(this.defaultExpirationTime);
-        });
+        date = Optional.ofNullable(date).orElseGet(() -> new Date(now.getTime() + this.defaultExpirationTime));
         return Base64Codec.BASE64URL
                 .encode(Jwts.builder().setClaims(map)
                         .setExpiration(date)
@@ -112,5 +110,57 @@ public class JwtComponent {
                         .compact()
                         .getBytes());
     }
+
+    public static void main(String[] args) {
+
+//        int[] nums = {1,2,2,3,4,4};
+//        int i = removeD(nums);
+//        System.out.println("新长度"+i);
+        int[] nums1 = {1,2,2,2,3,4,4};
+        for (int i = 0; i < nums1.length -1 ; i++) {
+            int index = i;
+            for (int y = 0; y < i; y++) {
+                if(nums1[i] - nums1[y] == 1){
+                    index = y + 1;
+                    break;
+                }
+            }
+            nums1[i] = nums1[index];
+
+        }
+        for (int i : nums1) {
+            System.out.println(i);
+        }
+
+    }
+
+    public static int removeD(int[] nums){
+
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int length = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if(nums[i] == nums[i+1]){
+                ++length;
+            }
+            int index = i;
+            for (int y = 0; y < i + 1; y++) {
+                if(nums[i] > nums[y]){
+                    index = i + 1;
+                }
+            }
+            nums[i] = nums[index];
+            System.out.println(nums[i]);
+        }
+        length = nums.length - length;
+        for (int num : nums) {
+            System.out.println(num);
+        }
+
+        return length;
+
+    }
+
 
 }

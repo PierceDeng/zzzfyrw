@@ -17,17 +17,18 @@
         <springframeword.version>5.2.10.RELEASE</springframeword.version>
         <aspect.version>1.9.6</aspect.version>
         <commons.codec>1.15</commons.codec>
-        <commons.lang3.version>3.11</commons.lang3.version>
+        <commons.lang3.version>3.10</commons.lang3.version>
         <jwt.version>0.9.1</jwt.version>
-        <okhttp.version>4.9.0</okhttp.version>
-        <jackson.version>2.12.1</jackson.version>
+        <okhttp.version>3.14.9</okhttp.version>
+        <jackson.version>2.11.3</jackson.version>
         <mybatis.plus.version>3.4.1</mybatis.plus.version>
         <javax.servlet.version>4.0.1</javax.servlet.version>
         <slf4j.logback.version>1.2.3</slf4j.logback.version>
         <spring.boot.version>2.3.5.RELEASE</spring.boot.version>
-        <commons.pool2.version>2.9.0</commons.pool2.version>
+        <commons.pool2.version>2.8.1</commons.pool2.version>
         <redisson.version>3.13.6</redisson.version>
         <fastjson.version>1.2.75</fastjson.version>
+        <io.netty.version>4.1.53.Final</io.netty.version>
     </properties>
 
     <dependencies>
@@ -37,6 +38,14 @@
             <artifactId>logback-classic</artifactId>
             <version>${slf4j.logback.version}</version>
         </dependency>
+
+        <!-- netty -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns</artifactId>
+            <version>${io.netty.version}</version>
+        </dependency>
+
 
         <!-- spring -->
         <dependency>
@@ -63,6 +72,32 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    <artifactId>jackson-dataformat-yaml</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
             <version>${redisson.version}</version>
         </dependency>
         <dependency>
@@ -111,17 +146,6 @@
             <version>${commons.codec}</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>${okhttp.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -131,6 +155,21 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>

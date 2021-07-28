@@ -9,7 +9,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class ZThreadPoolManager extends AbstractThreadPool implements IConcurrentHandler {
+public class ZThreadPoolManager extends AbstractThreadPool{
 
     public enum ThreadPoolHelper{
         INSTANCE;
@@ -26,32 +26,5 @@ public class ZThreadPoolManager extends AbstractThreadPool implements IConcurren
         init();
     }
 
-    @Override
-    public void asyncExecute(Runnable r) {
-        init();
-        getExecutor().execute(r);
-    }
 
-    @Override
-    public void cancel(Runnable r) {
-        if(null != r){
-            getExecutor().getQueue().remove(r);
-        }
-    }
-
-    @Override
-    public <V> V submit(Callable<V> task) throws ExecutionException, InterruptedException {
-        Future<V> submit = getExecutor().submit(task);
-        return submit.get();
-    }
-
-    @Override
-    public <V> List<V> invokeAll(List<? extends Callable<V>> tasks) throws InterruptedException, ExecutionException {
-        List<Future<V>> futureList = getExecutor().invokeAll(tasks);
-        List<V> results = new ArrayList<>();
-        for (Future<V> future : futureList) {
-            results.add(future.get());
-        }
-        return results;
-    }
 }

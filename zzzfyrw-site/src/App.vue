@@ -15,13 +15,6 @@
 
       }
     },
-    watch: {
-      $router(to,come){
-        console.info(to);
-        console.info(come)
-        console.info("==========")
-      }
-    }
   }
 </script>
 

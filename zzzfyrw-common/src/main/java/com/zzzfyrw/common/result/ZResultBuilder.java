@@ -1,5 +1,6 @@
 package com.zzzfyrw.common.result;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzzfyrw.common.enums.ResultEnum;
 
 public class ZResultBuilder {

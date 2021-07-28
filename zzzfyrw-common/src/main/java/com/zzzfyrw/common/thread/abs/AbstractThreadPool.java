@@ -1,8 +1,12 @@
 package com.zzzfyrw.common.thread.abs;
 
+import com.zzzfyrw.common.thread.IConcurrentHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 
-public abstract class AbstractThreadPool {
+public abstract class AbstractThreadPool implements IConcurrentHandler {
 
     private static final int CPU_COUNT              = Runtime.getRuntime().availableProcessors();
     //最大线程数 推荐公式 CPU核心数 + 1
@@ -68,4 +72,34 @@ public abstract class AbstractThreadPool {
     public ThreadPoolExecutor getExecutor() {
         return executor;
     }
+
+    @Override
+    public void asyncExecute(Runnable r) {
+        init();
+        getExecutor().execute(r);
+    }
+
+    @Override
+    public void cancel(Runnable r) {
+        if(null != r){
+            getExecutor().getQueue().remove(r);
+        }
+    }
+
+    @Override
+    public <V> V submit(Callable<V> task) throws ExecutionException, InterruptedException {
+        Future<V> submit = getExecutor().submit(task);
+        return submit.get();
+    }
+
+    @Override
+    public <V> List<V> invokeAll(List<? extends Callable<V>> tasks) throws InterruptedException, ExecutionException {
+        List<Future<V>> futureList = getExecutor().invokeAll(tasks);
+        List<V> results = new ArrayList<>();
+        for (Future<V> future : futureList) {
+            results.add(future.get());
+        }
+        return results;
+    }
+
 }

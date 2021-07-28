@@ -62,6 +62,8 @@ public class LogFilter implements GlobalFilter, Ordered {
         String finalRequestId = requestId;
         ServerHttpRequest addRequest = request.mutate().headers(x -> {
             x.add(HeaderConstant.REQUEST_ID, finalRequestId);
+            // 去除预请求
+            x.remove(HttpHeaders.EXPECT);
         }).build();
 
         Mono<Void> voidMono = Mono.empty();
