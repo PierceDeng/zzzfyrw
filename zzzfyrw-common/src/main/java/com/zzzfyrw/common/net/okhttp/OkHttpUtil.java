@@ -19,6 +19,8 @@ import javax.net.ssl.X509TrustManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -42,7 +44,7 @@ public class OkHttpUtil {
             final SSLContext sslContext;
             try {
                 sslContext = SSLContext.getInstance("SSL");
-                sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+                sslContext.init(null, trustAllCerts, new SecureRandom());
                 final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
                 builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
                 builder.hostnameVerifier((hostname, session) -> true);
@@ -60,16 +62,16 @@ public class OkHttpUtil {
         return new TrustManager[]{
                 new X509TrustManager() {
                     @Override
-                    public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                    public void checkClientTrusted(X509Certificate[] chain, String authType) {
                     }
 
                     @Override
-                    public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                    public void checkServerTrusted(X509Certificate[] chain, String authType) {
                     }
 
                     @Override
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                        return new java.security.cert.X509Certificate[]{};
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return new X509Certificate[]{};
                     }
                 }
         };
@@ -105,9 +107,19 @@ public class OkHttpUtil {
         return doRequest(request);
     }
 
+    public static Response postRP(String url,String json){
+        Request request = buildRequest(url, HttpMethodEnum.POST,null,json,null);
+        return doRequestRP(request);
+    }
+
     public static String post(String url,String json,Map<String,String> headers){
         Request request = buildRequest(url, HttpMethodEnum.POST,null,json,headers);
         return doRequest(request);
+    }
+
+    public static Response postRP(String url,String json,Map<String,String> headers){
+        Request request = buildRequest(url, HttpMethodEnum.POST,null,json,headers);
+        return doRequestRP(request);
     }
 
     public static String post(String url,Map<String,String> params){
@@ -144,6 +156,16 @@ public class OkHttpUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static Response doRequestRP(Request request){
+        Response response = null;
+        try {
+            response = getInstance().newCall(request).execute();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return response;
     }
 
     /**
@@ -204,6 +226,7 @@ public class OkHttpUtil {
                     body = builderFormUrlencoded(params);
                 }
                 setHeaders(headerMap, builder);
+                assert body != null;
                 builder.post(body);
                 break;
         }
@@ -218,9 +241,7 @@ public class OkHttpUtil {
             }
             builder.headers(headers.build());
         }else {
-            Headers.Builder headers = new Headers.Builder();
-            headers.add("Connection","close"); //取消连接保证下次请求获取
-            builder.headers(headers.build());
+            builder.addHeader("Connection","close");
         }
     }
 

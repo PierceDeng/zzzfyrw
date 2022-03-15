@@ -4,6 +4,7 @@ import com.zzzfyrw.common.cache.IRedisCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -100,4 +101,11 @@ public class LettuceHandler<V> implements IRedisCommand<String,V> {
     public void sendMessage(String channel, Object msg) {
         redisTemplate.convertAndSend(channel,msg);
     }
+
+
+    public V execute(RedisScript<V> redisScript,List keys,int count,int period){
+        Object execute = redisTemplate.execute(redisScript, keys, count, period);
+        return (V) execute;
+    }
+
 }

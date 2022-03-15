@@ -4,6 +4,4 @@ server:
 spring:
   application:
     name: zzzfyrw-system
-  profiles:
-    active: dev
 

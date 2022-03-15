@@ -1,6 +1,8 @@
 package com.zzzfyrw.system.controller;
 
 import com.zzzfyrw.common.annotation.anno.ZLog;
+import com.zzzfyrw.common.cache.config.LimitType;
+import com.zzzfyrw.common.cache.config.RedisLimit;
 import com.zzzfyrw.common.cache.lettuce.LettuceHandler;
 import com.zzzfyrw.common.cache.redisson.RedissonHandler;
 import com.zzzfyrw.common.constant.HeaderConstant;
@@ -38,6 +40,7 @@ public class TestController {
 
 //    @ZLog
     @GetMapping("/getT")
+    @RedisLimit(key = "ip_limit_test",period = 10,count = 3,limitType = LimitType.IP)
     public ZResult postT(@RequestParam("item") String item, HttpServletRequest request){
         String header = request.getHeader(HeaderConstant.REQUEST_ID);
         testService.test();

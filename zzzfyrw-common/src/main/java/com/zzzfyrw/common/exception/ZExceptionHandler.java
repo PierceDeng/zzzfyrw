@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -66,6 +67,14 @@ public class ZExceptionHandler {
         }
         return ZResultBuilder.fail();
     }
+
+    @ResponseBody
+    @ExceptionHandler(value = MissingServletRequestParameterException.class)
+    public ZResult<Object> exceptionHandler(MissingServletRequestParameterException e){
+        log.error(e.getMessage(),e);
+        return ZResultBuilder.fail(e.getMessage());
+    }
+
 
 
 

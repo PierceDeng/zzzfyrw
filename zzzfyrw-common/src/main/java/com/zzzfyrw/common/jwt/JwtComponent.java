@@ -1,5 +1,6 @@
 package com.zzzfyrw.common.jwt;
 
+import com.google.common.collect.Lists;
 import com.zzzfyrw.common.constant.EncryptConstant;
 import com.zzzfyrw.common.json.gson.GsonUtil;
 import io.jsonwebtoken.Claims;
@@ -10,9 +11,7 @@ import io.jsonwebtoken.impl.Base64Codec;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Date;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class JwtComponent {
     private SecretKey secretKey;
@@ -113,54 +112,98 @@ public class JwtComponent {
 
     public static void main(String[] args) {
 
-//        int[] nums = {1,2,2,3,4,4};
-//        int i = removeD(nums);
-//        System.out.println("新长度"+i);
-        int[] nums1 = {1,2,2,2,3,4,4};
-        for (int i = 0; i < nums1.length -1 ; i++) {
-            int index = i;
-            for (int y = 0; y < i; y++) {
-                if(nums1[i] - nums1[y] == 1){
-                    index = y + 1;
+
+//        int[] nums = {2,7,11};
+//        int target = 9;
+//        int[] calc = twoNum(nums, target);
+//        System.out.println(Arrays.toString(calc));
+//        String s = "pwwkew";
+//        int i = lengthOfLongestSubstring(s);
+//        System.out.println(i);
+
+        int[] num1 = {2};
+        int[] num2 = {};
+        double medianSortedArrays = findMedianSortedArrays(num1, num2);
+        System.out.println(medianSortedArrays);
+
+    }
+
+    public static int[] twoNum(int[] nums,int target){
+
+        int[] result = new int[2];
+
+
+        Map<Integer,Integer> hash = new HashMap<>(nums.length);
+        for (int i = 0; i < nums.length; i++) {
+            int value = target - nums[i];
+            if(hash.containsKey(value)){
+                result[1] = i;
+                result[0] = hash.get(value);
+                break;
+            }
+            hash.put(nums[i],i);
+        }
+
+        return result;
+    }
+
+    public static int lengthOfLongestSubstring(String s) {
+        int result = 0;
+        if(s.equals("")){
+            return result;
+        }
+        int length = s.length();
+
+        Map<Integer,String> hash = new HashMap<>();
+        for (int i = 0; i < length; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = i; j < length; j++) {
+                String next = s.substring(j, j + 1);
+                if(sb.toString().contains(next)){
+                    hash.put(sb.toString().length(),sb.toString());
                     break;
                 }
-            }
-            nums1[i] = nums1[index];
-
-        }
-        for (int i : nums1) {
-            System.out.println(i);
-        }
-
-    }
-
-    public static int removeD(int[] nums){
-
-        if(nums == null || nums.length == 0){
-            return 0;
-        }
-        int length = 0;
-        for (int i = 0; i < nums.length - 1; i++) {
-            if(nums[i] == nums[i+1]){
-                ++length;
-            }
-            int index = i;
-            for (int y = 0; y < i + 1; y++) {
-                if(nums[i] > nums[y]){
-                    index = i + 1;
+                sb.append(next);
+                if(length == j + 1){
+                    hash.put(sb.toString().length(),sb.toString());
+                    break;
                 }
+
             }
-            nums[i] = nums[index];
-            System.out.println(nums[i]);
         }
-        length = nums.length - length;
-        for (int num : nums) {
-            System.out.println(num);
+        Set<Map.Entry<Integer, String>> entries = hash.entrySet();
+
+        for (Map.Entry<Integer, String> entry : entries) {
+            if(entry.getKey() > result){
+                result = entry.getKey();
+            }
         }
 
-        return length;
-
+        return result;
     }
+
+
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+
+        double result = 0.00000;
+        List<Double> set = new ArrayList<>();
+        for (int i : nums1) {
+            set.add((double) i);
+        }
+        for (int i : nums2) {
+            set.add((double) i);
+        }
+        Collections.sort(set);
+        int size = set.size();
+        int mid = size / 2;
+        if(size % 2 == 0){ //整数
+            result = (set.get(mid) + set.get(mid - 1)) / 2;
+        }else { //单数
+            result = set.get(mid);
+        }
+        return result;
+    }
+
 
 
 }

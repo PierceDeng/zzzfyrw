@@ -77,4 +77,6 @@ public interface IRedisCommand<K,V> {
 
     void sendMessage(String channel,Object msg);
 
+
+
 }
