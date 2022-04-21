@@ -51,6 +51,8 @@ public class IdWorker {
     private static long lastTimestamp = -1L;
     // 0，并发控制
     private long sequence = 0L;
+    
+    private long thy = 0L;
 
     private final long workerId;
     // 数据标识id部分
