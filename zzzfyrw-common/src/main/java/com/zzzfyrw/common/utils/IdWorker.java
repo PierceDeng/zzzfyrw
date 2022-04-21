@@ -52,6 +52,7 @@ public class IdWorker {
     // 0，并发控制
     private long sequence = 0L;
     
+    //测试东西
     private long thy = 0L;
 
     private final long workerId;
