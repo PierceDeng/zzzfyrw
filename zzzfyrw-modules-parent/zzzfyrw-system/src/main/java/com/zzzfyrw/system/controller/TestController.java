@@ -47,5 +47,13 @@ public class TestController {
         return ZResultBuilder.ok(item);
     }
 
+    @GetMapping("/test")
+    public ZResult test2(){
+        testService.test();
+        return ZResultBuilder.ok();
+    }
+
+
+
 
 }

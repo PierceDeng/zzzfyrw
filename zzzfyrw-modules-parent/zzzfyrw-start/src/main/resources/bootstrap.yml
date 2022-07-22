@@ -1,4 +1,8 @@
 
+nacos:
+  server-addr: 127.0.0.1:8848
+  name-space: zzz-namespace
+
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -11,10 +15,16 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr:  127.0.0.1:1501
+        server-addr: ${nacos.server-addr}
         file-extension: yaml
+        namespace: ${nacos.name-space}
+        shared-configs:
+          - data-id: resource-${spring.profiles.active}.yaml
+            refresh: true
+            group: DEFAULT_GROUP
       discovery:
-        server-addr: 127.0.0.1:1501
+        server-addr: ${nacos.server-addr}
+        namespace: ${nacos.name-space}
 
 
 ---

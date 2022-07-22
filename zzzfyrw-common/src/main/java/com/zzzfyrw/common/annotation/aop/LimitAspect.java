@@ -74,7 +74,7 @@ public class LimitAspect {
             }
         } catch (Throwable e) {
             if (e instanceof RuntimeException) {
-                throw new ZBootException(e.getLocalizedMessage());
+                throw new ZBootException(e.getMessage());
             }
             throw new ZBootException("server exception");
         }

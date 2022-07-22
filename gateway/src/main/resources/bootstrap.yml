@@ -9,11 +9,16 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 127.0.0.1:1501
+        server-addr: 127.0.0.1:8848
         file-extension: yaml
+        namespace: zzz-namespace
+        shared-configs:
+          - data-id: resource-${spring.profiles.active}.yaml
+            refresh: true
+            group: DEFAULT_GROUP
       discovery:
-        server-addr: 127.0.0.1:1501
-        namespace:
+        server-addr: 127.0.0.1:8848
+        namespace: zzz-namespace
     gateway:
       enabled: true
       globalcors:

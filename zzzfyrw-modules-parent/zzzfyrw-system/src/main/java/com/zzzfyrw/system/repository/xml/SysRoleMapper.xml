@@ -20,7 +20,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, row_status, has_open, created_time, updated_time, created_user, updated_user, description
+        id, `name`, row_status, has_open, created_time, updated_time, created_user, updated_user, description
     </sql>
 
     <sql id="Role_Info_Sql">

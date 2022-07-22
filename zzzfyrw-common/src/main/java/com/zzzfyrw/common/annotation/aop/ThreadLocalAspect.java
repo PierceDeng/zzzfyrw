@@ -20,13 +20,11 @@ public class ThreadLocalAspect {
 
     @Around(value = "saveThreadLocalMap()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("around");
         return joinPoint.proceed();
     }
 
     @After(value = "saveThreadLocalMap()")
     public void after(JoinPoint jd) {
-        System.out.println("after");
         ThreadLocalUtil.removeAll();
     }
 

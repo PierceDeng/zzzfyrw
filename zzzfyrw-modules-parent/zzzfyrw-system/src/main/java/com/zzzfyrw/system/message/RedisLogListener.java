@@ -22,6 +22,6 @@ public class RedisLogListener implements MessageListener {
     public void onMessage(Message message, byte[] pattern) {
         String body = new String(message.getBody(), StandardCharsets.UTF_8);
         SysLogEntity sysLogEntity = GsonUtil.fromJsonToObject(body, SysLogEntity.class);
-        sysLogMapper.insert(sysLogEntity);
+//        sysLogMapper.insert(sysLogEntity);
     }
 }

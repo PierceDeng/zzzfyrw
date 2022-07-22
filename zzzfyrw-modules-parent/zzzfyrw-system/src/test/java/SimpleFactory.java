@@ -1,4 +1,3 @@
-import com.sun.scenario.animation.shared.AnimationAccessor;
 import org.junit.Test;
 
 public class SimpleFactory {

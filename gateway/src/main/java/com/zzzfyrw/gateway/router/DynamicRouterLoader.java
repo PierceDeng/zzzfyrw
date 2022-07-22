@@ -80,7 +80,6 @@ public class DynamicRouterLoader implements ApplicationEventPublisherAware {
             nacosListener(routerConfig.DATA_ID, routerConfig.ROUTE_GROUP);
         } catch (NacosException e) {
             log.error("无法获取网关路由数据", e);
-            e.printStackTrace();
         }
 
     }
@@ -125,7 +124,6 @@ public class DynamicRouterLoader implements ApplicationEventPublisherAware {
                     log.info("进行网关更新:\n\r{}", configInfo);
                     List<RouteDefinition> definitionList = FastJsonUtil.jsonToList(configInfo, RouteDefinition.class);
                     for (RouteDefinition definition : definitionList) {
-                        log.info("update route : {}", definition.toString());
                         dynamicRouterService.update(definition);
                     }
                 }
@@ -136,7 +134,7 @@ public class DynamicRouterLoader implements ApplicationEventPublisherAware {
                 }
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
         }
     }
 

@@ -267,8 +267,9 @@ public class OkHttpUtil {
                 buffer.append("?");
             }
             for (Map.Entry<String, String> entry : map.entrySet()) {
-                if(!first)
+                if(!first) {
                     buffer.append("&");
+                }
                 buffer.append(entry.getKey());
                 buffer.append("=");
                 buffer.append(entry.getValue());

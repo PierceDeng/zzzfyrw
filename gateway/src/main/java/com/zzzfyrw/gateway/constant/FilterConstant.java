@@ -14,4 +14,15 @@ public class FilterConstant {
      */
     public static final Integer LOG_FILTER = 110;
 
+    /**
+     * 黑名单拦截
+     */
+    public static final Integer BLACK_IP_FILTER = 1;
+
+
+    /**
+     * 黑名单
+     */
+    public static final String BLACK_IP_TIP = "REQUEST_BLACK_IP_TIP:";
+
 }

@@ -43,7 +43,7 @@ public class LoginServiceImpl implements ILoginService {
         String cipherText = vo.getCipherText();
         String password = "error";
         try {
-            password = AesCipher.getInstance().decode(EncryptConstant.AES_KEY,cipherText);
+            password = AesCipher.getInstance().encode(EncryptConstant.AES_KEY,cipherText);
             List<SysUserEntity> users = userMapper.selectList(new LambdaQueryWrapper<SysUserEntity>()
                     .eq(SysUserEntity::getName, userName)
                     .eq(SysUserEntity::getRowStatus,Boolean.TRUE)
@@ -88,11 +88,11 @@ public class LoginServiceImpl implements ILoginService {
             }
             return resultDto;
         } catch (ZBootException e){
-            log.info(e.getMessage(),e);
+            log.error(e.getMessage(),e);
             throw new ZBootException(e.getMessage());
         } catch (Exception e) {
-            log.info("解密失败 ：{}",password);
-            log.info(e.getMessage(),e);
+            log.error("解密失败 ：{}",password);
+            log.error(e.getMessage(),e);
             throw new ZBootException("登录失败");
         } finally {
 

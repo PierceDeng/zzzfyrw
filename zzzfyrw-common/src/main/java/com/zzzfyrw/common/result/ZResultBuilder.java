@@ -1,10 +1,17 @@
 package com.zzzfyrw.common.result;
 
-import com.alibaba.fastjson.JSONObject;
 import com.zzzfyrw.common.enums.ResultEnum;
 
 public class ZResultBuilder {
 
+
+    public static <T> ZResult<T> ok(){
+        ZResult<T> result = new ZResult<>();
+        result.setSuccess(Boolean.TRUE);
+        result.setTimestamp(System.currentTimeMillis());
+        codeMsgBuild(result,ResultEnum.SUCCESS);
+        return result;
+    }
 
     public static <T> ZResult<T> ok(T t){
         ZResult<T> result = new ZResult<>();

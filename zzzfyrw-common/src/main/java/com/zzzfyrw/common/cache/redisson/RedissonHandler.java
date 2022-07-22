@@ -102,4 +102,15 @@ public class RedissonHandler<V> implements IRedisCommand<String,V> {
     public void sendMessage(String channel, Object msg) {
 
     }
+
+
+    @Override
+    public Long incr(String key) {
+        return redissonClient.getAtomicLong(key).incrementAndGet();
+    }
+
+    @Override
+    public Long decr(String key) {
+        return redissonClient.getAtomicLong(key).decrementAndGet();
+    }
 }

@@ -108,4 +108,14 @@ public class LettuceHandler<V> implements IRedisCommand<String,V> {
         return (V) execute;
     }
 
+
+    @Override
+    public Long incr(String key) {
+        return redisTemplate.opsForValue().increment(key);
+    }
+
+    @Override
+    public Long decr(String key) {
+        return redisTemplate.opsForValue().decrement(key);
+    }
 }

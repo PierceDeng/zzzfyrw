@@ -75,8 +75,33 @@ public interface IRedisCommand<K,V> {
     Boolean setKeyExpireTime(String key,Long time);
 
 
+    /**
+     * @param channel 通道
+     * @param msg 消息
+     * @author : dpz
+     * @apiNote
+     * @since  2022/7/22 0022
+     */
     void sendMessage(String channel,Object msg);
 
+
+    /**
+     * @param key key
+     * @author : dpz
+     * @apiNote  自增
+     * @since  2022/7/22 0022
+     * @return {@link Long}
+     */
+    Long incr(String key);
+
+    /**
+     * @param key key
+     * @author : dpz
+     * @apiNote  递减
+     * @since  2022/7/22 0022
+     * @return {@link Long}
+     */
+    Long decr(String key);
 
 
 }
