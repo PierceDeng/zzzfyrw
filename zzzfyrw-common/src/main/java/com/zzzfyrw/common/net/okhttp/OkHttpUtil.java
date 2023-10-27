@@ -35,11 +35,11 @@ public class OkHttpUtil {
         INSTANCE;
         private OkHttpClient OkHttpClient;
         OkHttpHelper(){
-            this.OkHttpClient=new OkHttpClient();
-            OkHttpClient.Builder builder = this.OkHttpClient.newBuilder();
-            builder.connectTimeout(60, TimeUnit.SECONDS);
-            builder.readTimeout(60,TimeUnit.SECONDS);
-            builder.writeTimeout(60,TimeUnit.SECONDS);
+            OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+            builder.connectTimeout(30, TimeUnit.SECONDS);
+            builder.readTimeout(60, TimeUnit.SECONDS);
+            builder.writeTimeout(60, TimeUnit.SECONDS);
+            builder.retryOnConnectionFailure(Boolean.TRUE);
             TrustManager[] trustAllCerts = buildTrustManagers();
             final SSLContext sslContext;
             try {
@@ -51,7 +51,7 @@ public class OkHttpUtil {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            builder.build();
+             this.okHttpClient = builder.build();
         }
         public OkHttpClient getOkHttpClient() {
             return OkHttpClient;
@@ -245,14 +245,18 @@ public class OkHttpUtil {
         }
     }
 
-    private static RequestBody builderFormUrlencoded(Map<String,String> map){
+    private static RequestBody builderFormUrlencoded(Map<String, Object> map) {
         FormBody.Builder formBody = new FormBody.Builder();
-        if(map != null){
-            for (Map.Entry<String, String> entry : map.entrySet()) {
-                if(entry.getValue() == null){
-                    formBody.add(entry.getKey(),"");
-                }else {
-                    formBody.add(entry.getKey(),entry.getValue());
+        if (map != null) {
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (Objects.nonNull(entry.getValue())) {
+                    try {
+                        formBody.addEncoded(entry.getKey(), URLEncoder.encode(String.valueOf(entry.getValue()), "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    formBody.add(entry.getKey(), "");
                 }
             }
         }
